@@ -1,0 +1,17 @@
+#a {
+    background-color: rgb(222, 229, 185);
+    width: 400px;
+    height:400px;
+}
+
+#b {
+    background-color: rgb(229, 195, 185);
+    width: 300px;
+    height: 300px;
+}
+
+#c {
+    background-color: rgb(185, 199, 229);
+    width: 150px;
+    height: 150px;
+}
