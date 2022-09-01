@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!--
+        v-for指令：
+        1.用于展示列表数据
+        2.语法：v-for="(item,index) in xxx" :key="xxx"
+        3.可遍历：数组、对象、字符串（较少使用）、指定次数（较少使用）
+    -->
+    <div id="root">
+      <h2>人员列表</h2>
+      <input type="text" placeholder="input name..." v-model="keyWordName" />
+      <!-- <input type="text" placeholder="input age..." v-model="keyWordAge" />
+      <input type="text" placeholder="input gender..." v-model="keyWordGender" /> -->
+      <!-- <button>ok</button> -->
+      <!--遍历数组-->
+      <ul>
+        <li v-for="(p,index) in result" :key="p.id">
+          {{p.name}} -- {{p.age}} -- {{p.gender}}
+        </li>
+        <!-- <li v-for="(p,index) in filPersons" :key="p.id">
+          {{p.name}} -- {{p.age}} -- {{p.gender}} -->
+        </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        keyWordName: "",
+        filPersons: [],
+        persons: [
+          { id: "001", name: "马冬梅", age: 21, gender: "女" },
+          { id: "002", name: "周冬雨", age: 12, gender: "女" },
+          { id: "003", name: "周杰伦", age: 18, gender: "男" },
+          { id: "004", name: "温兆伦", age: 40, gender: "男" },
+        ],
+      },
+
+      /**
+       * 用computed实现
+       */
+      computed: {
+        //用computed写法，因为原数据不变，而计算得到的数据会改变
+        //原数据不要越搜索越少！！
+        result() {
+          return this.persons.filter((p) => {
+            return p.name.indexOf(this.keyWordName) !== -1;
+          });
+          // .filter((p)=>{
+          //     return p.age == this.keyWordAge;
+          // }).filter((p)=>{
+          //     return p.gender == this.keyWordGender;
+          // });
+        },
+      },
+
+      /**
+       * 用watch实现
+       */
+      //#region
+      //   watch: {
+      //     keyWordName: {
+      //       immediate: true,
+      //       handler(newValue) {
+      //         console.log(newValue);
+      //         this.filPersons = this.persons.filter((p) => {
+      //           return p.name.indexOf(newValue) !== -1;
+      //         });
+      //       },
+      //     },
+      //   },
+      // #endregion
+    });
+  </script>
+</html>
