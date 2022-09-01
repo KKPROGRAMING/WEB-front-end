@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!--
+        v-for指令：
+        1.用于展示列表数据
+        2.语法：v-for="(item,index) in xxx" :key="xxx"
+        3.可遍历：数组、对象、字符串（较少使用）、指定次数（较少使用）
+    -->
+    <div id="root">
+      <input type="text" placeholder="input name..." />
+      <button>ok</button>
+
+      <!--遍历数组-->
+      <ul>
+        <h2>姓名 - 年龄</h2>
+        <li v-for="p in persons" :key="p.id">{{p.name}} - {{p.age}}</li>
+      </ul>
+
+      <ul>
+        <h2>元素 -------- 索引</h2>
+        <li v-for="(p,index) in persons" :key="index">{{p}} -------- {{b}}</li>
+      </ul>
+
+      <ul>
+        <h2>姓名 - 年龄</h2>
+        <li v-for="(p,index) in persons" :key="index">{{p.name}} - {{p.age}}</li>
+      </ul>
+
+      <!--遍历对象-->
+      <ul>
+        <h2>汽车信息</h2>
+        <li v-for="(value,key) in car" :key="key">{{key}} : {{value}}</li>
+      </ul>
+
+      <!--遍历字符串-->
+      <ul>
+        <h2>测试遍历字符串</h2>
+        <li v-for="(char,index) in str" :key="index">
+            {{char}} - {{index}}
+        </li>
+      </ul>
+
+
+      <!--遍历指定次数-->
+      <ul>
+        <li v-for="(number,index) in 5" :key="index">
+            {{number}} - {{index}}
+        </li>
+      </ul>
+
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        persons: [
+          { id: "001", name: "jack", age: 21 },
+          { id: "002", name: "linda", age: 12 },
+          { id: "003", name: "anna", age: 18 },
+        ],
+        car: {
+          name: "car",
+          price: "70w",
+          color: "black",
+        },
+        str:'hello'
+      },
+    });
+  </script>
+</html>
