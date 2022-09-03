@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>   
+    <div id="root">
+        <button @click="addGender">click me to add gender</button><br><br>
+        <h2>学生信息</h2>
+        <h3>学生姓名：{{student.name}}</h3>
+        <h3>学生年龄：{{student.age}}</h3>
+        <h3>学生地址：{{student.address}}</h3>
+        <h3 v-if="student.gender">学生性别：{{student.gender}}</h3>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        student:{
+            name:'jack',
+            age:21,
+            address:'HDU'
+        }
+      },
+      methods:{
+        addGender(){
+            // Vue.set(this.student,'gender','男'); 两种写法，Vue.set和vm.$set()
+            this.$set(this.student,'gender','男');
+        }
+      }
+    });
+  </script>
+</html>
