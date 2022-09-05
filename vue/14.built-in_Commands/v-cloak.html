@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+    [v-cloak] {
+        display:none;
+    }
+</style>
+<body>
+    <!--
+        v-cloak指令（没有值）：
+            1.本质是一个特殊属性.Vue实例创建完毕并接管容器后，会删掉v-vloak属性。
+            2.使用css配合v-cloak可以解决网速慢时页面展示出{{xxx}}的问题。
+    -->
+   <div id="root">
+    <!--
+        打开控制台，找到“网络”，自定义下载速度并将该速度限制为1kbit/s,
+        刷新后就可以观察到：因为来不及将vm加载而出现的“{{name}}”，
+        当加载完成后，才会观察到“jack”。
+    -->
+    <h2 v-cloak>{{name}}</h2>
+    <img src="network.png" width="60%"/>
+    <img src="speed.png" width="60%"/>
+   </div> 
+</body>
+<script type="text/javascript" src="../js/vue.js"></script>
+<script>
+    Vue.config.productionTip = false;
+     const vm = new Vue({
+        el:"#root",
+        data:{
+            name:"jack",
+        }
+     });
+</script>
+</html>
