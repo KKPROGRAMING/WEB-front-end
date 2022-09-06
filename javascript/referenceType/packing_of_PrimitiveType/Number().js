@@ -26,9 +26,3 @@ console.log(num.toPrecision()); //99
 console.log(Number.isInteger(1)); //true
 console.log(Number.isInteger(1.00)); //true
 console.log(Number.isInteger(1.01)); //false
-
-
-let arr = ["h","e","l","l"];
-for(const [a,b] of arr){
-    console.log(`${a},${b}`);
-}
