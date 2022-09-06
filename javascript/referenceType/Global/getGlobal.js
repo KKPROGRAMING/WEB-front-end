@@ -43,4 +43,3 @@ console.log(global); //打印结果见下
       [Symbol(nodejs.util.promisify.custom)]: [Getter]
     }
   } */}
-  
