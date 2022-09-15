@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        firstname:<input type="text" v-model="firstname"><br><br>
+        lastname:<input type="text" v-model="lastname"><br><br>
+        name:<span>{{fullName}}</span><br><br>
+        name:<span>{{fullName}}</span><br><br>
+        name:<span>{{fullName}}</span><br><br>
+        name:<span>{{fullName}}</span>
+        <!--看似fullName()调用了4次，实际上只有一次。
+            因为有缓存，第一次读调用一次，
+            等计算属性依赖的属性值发生变化时才会再重新调用。
+        
+        但是，methods写法没有缓存。所以每次读都会调用一次对应的method()-->
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            firstname:'jack',
+            lastname:'white'
+        },
+        computed:{
+            /**
+             * 计算属性：
+             * 1.定义：要用的属性不存在，要通过 已有的属性计算得到
+             * 2.原理：底层借助了Object.define.property方法提供的getter和setter
+             * 3.get函数什么时候执行？
+             * （1）初次读取时会执行一次
+             * （2）当依赖的数据发生变化时会被再次调用
+             * 4.优势：与methods实现相比，内部有缓存机制（复用），效率更高，调试方便
+             * 5.备注：
+             *  1.计算属性最终会出现在vm上，直接读取使用即可
+             *  2.如果计算属性要被修改，那必须写set函数去响应修改，且set中要引起计算时依赖的数据发生变化
+            */
+            fullName:{
+                //get的作用：当有人读取fullName时，get()就会被调用，返回值作为fullName的值
+                //底层实现用的就是defineProperty
+                get(){
+                    //记得使用this来获取用来计算的属性的值
+                    return this.firstname+'-'+this.lastname;
+                },
+                //set什么时候调用？
+                //当fullName被修改时
+                set(value){
+                    const arr = value.split('-');
+                    this.firstname = arr[0];
+                    this.lastname = arr[1];
+                }
+            }
+        }
+    });
+</script>
+</html>

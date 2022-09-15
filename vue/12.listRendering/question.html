@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>   
+    <div id="root">
+      <!--遍历数组-->
+        <button @click="updateMei">更新马冬梅</button>
+      <ul>
+        <h2>姓名 - 年龄</h2>
+        <li v-for="(p,index) in persons" :key="p.id">
+            {{p.name}} -- {{p.age}} -- {{p.gender}}
+          </li>
+      </ul>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        persons: [
+          { id: "001", name: "马冬梅", age: 21, gender: "女" },
+          { id: "002", name: "周冬雨", age: 12, gender: "女" },
+          { id: "003", name: "周杰伦", age: 18, gender: "男" },
+          { id: "004", name: "温兆伦", age: 40, gender: "男" },
+        ],
+      },
+      methods:{
+        updateMei(){
+            // this.persons[0].name = '马老师';
+            // this.persons[0].age = 50;
+            // this.persons[0].gender = '男';
+            this.persons[0] = {id:'001',name:'马老师',age:55,gender:'男'};
+
+            /**
+             * 上面两种不同写法有不同的效果，直接改属性是可以在页面和vue的开发者工具直观呈现的，
+             * 但是把整个对象都改了，页面上并没有效果
+             * 但在控制台打印时可以观察到数据的变化
+             * 这涉及到vue在监测数据时的底层原理
+            */
+        }
+      }
+    });
+  </script>
+</html>

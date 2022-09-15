@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        firstname:<input type="text" v-model="firstname"><br><br>
+        lastname:<input type="text" v-model="lastname"><br><br>
+        name:<span>{{fullName()}}</span>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el:'#root',
+        data:{
+            //不管什么地方，只要data中的数据发生了改变，vue都会重新解析一遍模板
+            firstname:'jack',
+            lastname:'white'
+        },
+        methods:{
+            fullName(){
+                // return "hello";
+                return this.firstname+'-'+this.lastname;
+            }
+        }
+    });
+</script>
+</html>

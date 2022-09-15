@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>interpolation</h1>
+        <h2>hello, i'm {{name}}</h2>
+        <hr/>
+        <h1>instruction</h1>
+        <a v-bind:href="url">click me to {{name}}</a>
+        <br/>
+        <a :href="url">click me again!</a>
+        <!-- dont add a blank between "v-bind" and ":", or something wrong -->
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                name:'jack',
+                url:'https://cn.vuejs.org/v2/guide/installation.html'
+            }
+        });
+
+    </script>
+</body>
+</html>

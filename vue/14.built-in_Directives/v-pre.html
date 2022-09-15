@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        v-pre指令：
+            1.跳过其所在结点的编译过程。
+            2.可利用它跳过：没有使用指令语法、没有使用插值语法的节点，会加快编译。
+    -->
+   <div id="root">
+        <h2 v-pre>我正在学习Vue</h2>
+        <h2 v-pre>当前的n值是：{{n}}</h2><!--编译时这一行被跳过了，节点什么样页面就呈现什么样-->
+        <h2>当前的n值是：{{n}}</h2>
+        <button @click="n++">click me to add one</button>
+   </div> 
+</body>
+<script>
+    Vue.config.productionTip = false;
+     const vm = new  Vue({
+        el:"#root",
+        data:{
+            n:1,
+        }
+     });
+</script>
+</html>

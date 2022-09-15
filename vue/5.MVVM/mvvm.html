@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script typr="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--view-->
+    <div id="root">
+        <h1>school:{{school}}</h1>
+        <h1>address:{{address}}</h1>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        //view model
+        const vm = new Vue({
+            el:"#root",
+            data:{
+                // model
+                school:'HDU',
+                address:'hangzhou',
+                test:1
+            }
+        });
+    </script>
+</body>
+</html>

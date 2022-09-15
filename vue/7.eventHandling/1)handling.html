@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      <h2>hello world! im {{name}}</h2>
+      <button @click="show(66,$event)">click me</button>
+    </div>
+
+    <script type="text/javascript">
+      Vue.config.productionTip = false;
+
+      function show() {
+        alert("hello");
+      }
+
+      const vm = new Vue({
+        el: "#root",
+        data: {
+          name: "jack",
+        },
+        methods: {
+          show(number,event) {
+            alert("hello");
+            console.log(this);
+            console.log(event,number);
+            //event.target 是触发事件的对象 button
+            //this(非箭头函数) 是实例化的vue对象
+            //如果是箭头函数，this是全局对象window
+          },
+        },
+      });
+    </script>
+  </body>
+</html>

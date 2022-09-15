@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <div id="root">
+      firstname:<input type="text" v-model="firstname" /><br /><br />
+      lastname:<input type="text" v-model="lastname" /><br /><br />
+      name:<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        firstname: "jack",
+        lastname: "white",
+      },
+      computed: {
+        //只考虑读不考虑改，则可以用这一简写形式
+        //完整写法参考computedProperties.html文件
+        
+        //这里用的时候不用加括号，因为计算完得到的属性会直接挂到vm身上
+        fullName() {
+          return this.firstname + "-" + this.lastname;
+        },
+      },
+    });
+  </script>
+</html>

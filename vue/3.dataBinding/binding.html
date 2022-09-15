@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        one way：
+        <!--from data to page only-->
+        <input type="text" v-bind:value='age'><br/>
+        two way：
+        <!--from data to page or from page to data-->
+        <input type="text" v-model:value='age'><br/>
+
+        <hr/>
+
+        <!--simplify-->
+        one way：
+        <!--from data to page only-->
+        <input type="text" :value='age'><br/>
+        two way：
+        <!--from data to page or from page to data-->
+        <input type="text" v-model='age'>
+
+        <!--the following code is error,
+        because the 'v-model' instruction must be
+        used in form element-->
+        <!-- <h2 v-model:x="name">test</h2> -->
+
+
+    </div>
+    
+    <script type="text/javascript">
+        Vue.config.productionTip = false ;
+
+        new Vue({
+            el:'#root',
+            data:{
+                name:'HDU',
+                age:18
+            }
+        });
+    </script>
+</body>
+</html>

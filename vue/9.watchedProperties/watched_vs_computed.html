@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+  </head>
+  <body>
+    <!--
+        computed和watched之间的区别：
+        1.computed能完成的功能，watch都可以完成
+        2.watch能完成的功能，computed不一定能完成。例如：watch可以进行异步操作
+        两个重要的小原则：
+        1.所有被vue管理的函数，最好写成普通函数，这样this的指向才是 vm 或 组件实例对象
+        2.所有不被vue管理的函数（定时器回调函数、ajax的回调函数等），最好写成箭头函数，这样this的指向才是vm或组件实例对象
+    -->
+    <div id="root">
+      firstname:<input type="text" v-model="firstname" /><br /><br />
+      lastname:<input type="text" v-model="lastname" /><br /><br />
+      name:<span>{{fullName}}</span>
+    </div>
+  </body>
+  <script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+      el: "#root",
+      data: {
+        firstname: "jack",
+        lastname: "white",
+        fullName:'jack-white' //这里要提前准备一个fullName
+      },
+      watch:{
+        //虽然看着比computer麻烦，但是两者各有千秋
+        //可以在watch中使用setTimeout进行延时的操作
+        //计算属性中不能开启一个异步任务达到延时的效果，因为watch不是靠返回值，但computer的get()靠的是返回值
+        //所以对于一些异步任务，用watch
+        firstname(newValue){
+            setTimeout((newValue)=>{
+                this.fullName = newValue +'-' +this.lastname;
+            },1000);
+            //注意setTimeout函数里的回调函数用箭头函数的形式！
+            //因为箭头函数没有自己的this，会往外层的作用域去找
+            //setTimeout函数由js引擎帮助调用，而非vm管理，所以如果用普通函数的形式，this指向的是window
+            //用箭头函数的形式则在firstname()函数作用域中找到this，即vm
+        },
+        lastname(newValue){
+            this.fullName = this.firstname +'-' +newValue;
+        }
+      }
+    });
+  </script>
+</html>

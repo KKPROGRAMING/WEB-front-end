@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        需求1；定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
+        需求2；定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+    -->
+    <div id="root">
+        <h2>num的值：{{num}}</h2>
+        <h2 v-big="num"></h2>
+        <button @click="num++">click me to add one</button>
+        <input type="text" v-fbind:value="num">
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el:"#root",
+        data:{
+            num:1
+        },
+        directives:{
+            big(element,binding){
+                element.innerHTML = binding.value * 10;
+            },
+            fbind:{
+                //指令与元素成功绑定时（一上来）
+                bind(element,binding){
+                    element.value = binding.value;
+                },
+                //指令所在元素被插入页面时
+                inserted(element,binding){
+                    element.focus();
+                },
+                //指令所在的模板被重新解析时
+                update(element,binding){
+                    element.value = binding.value;
+                }
+
+                // 可以发现bind()和update()里面的逻辑是一样的，
+                // 所以简写形式只定义了bind和update阶段的逻辑，
+                // 要更详细地控制指令在不同阶段的行为，需要将简写形式（函数式）变为命令式。
+                 
+            },
+        }
+    });
+</script>
+</html>

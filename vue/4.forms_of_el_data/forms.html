@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <div id="root">
+        <h1>hello, {{name}}!</h1>
+    </div>
+
+    <script type="text/javascript">
+        Vue.config.productionTip = false;
+
+        //2 forms of 'el'
+        // const v = new Vue({
+        //     // el:'#root',
+        //     data:{
+        //         name:'jack',
+        //         age:18
+        //     }
+        // });
+
+        // console.log(v);
+        // setTimeout(()=>{
+        //     v.$mount('#root');
+        // },1000);//more flexible
+
+        new Vue({
+            el:'#root',
+            // data:{
+            //     name:'jack',
+            //     age:21
+            // }
+
+            // data:function(){
+            //     //dont use arrows function
+            //     console.log('@@@',this);
+            //     return{
+            //         name:'jack',
+            //         age:21
+            //     }
+            // }
+
+            //or
+            data(){
+                console.log('@@@',this);
+                return{
+                    name:'jack',
+                    age:21
+                }
+            }
+        });
+        
+    </script>
+</body>
+</html>

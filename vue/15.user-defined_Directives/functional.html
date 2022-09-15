@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+    <!--
+        需求1；定义一个v-big指令，和v-text功能类似，但会把绑定的数值放大10倍。
+        需求2；定义一个v-fbind指令，和v-bind功能类似，但可以让其所绑定的input元素默认获取焦点。
+    -->
+    <div id="root">
+        <h2>num的值：{{num}}</h2>
+        <h2 v-big="num"></h2>
+        <button @click="num++">click me to add one</button>
+    </div>
+</body>
+<script>
+    Vue.config.productionTip = false;
+
+    const vm = new Vue({
+        el:"#root",
+        data:{
+            num:1
+        },
+        directives:{
+            //big函数什么时候被调用？
+            //1.指令与元素成功绑定时（一上来）。
+            //2.指令所在的模板被重新解析时。
+            big(element,binding){
+                //console.log(element,binding.value); 
+                //element:用了该自定义指令的元素
+                //binding:绑定对象，指明v-big指令和element的绑定关系
+
+                //element.innerHTML = this.num * 10;
+                //console.log(this); //注意！这里的指向是window
+
+                element.innerHTML = binding.value * 10;
+            }
+        }
+    });
+</script>
+</html>
