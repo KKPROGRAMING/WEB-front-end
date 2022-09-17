@@ -31,8 +31,13 @@
 
  /**字符串也能使用这样的方法 */
 let str = "helloworld!";
-console.log(new Array("hello world")); //[ 'hello world' ]
-console.log(new Array("hello world").indexOf("owo")); //-1
+console.log(new Array("helloworld")); //[ 'helloworld' ]
+console.log(new Array("helloworld").indexOf("owo")); //-1
+console.log(Array.from("helloworld")); 
+//['h', 'e', 'l', 'l', 'o', 'w', 'o','r', 'l', 'd']
+console.log(Array.from("helloworld").indexOf(Array.from("owo"))); //-1
+console.log(Array.from("helloworld").indexOf("owo")); //-1
+console.log(Array.from("helloworld").indexOf("o","w","o")); //4
 console.log(str.indexOf("owo")); //4
 console.log(str.includes("lle")); //false
 
