@@ -82,3 +82,15 @@ async function addContent(filename,newContent) {
 addContent(file1,str);
 setTimeout(()=>{console.log(file1.content)},0)
 
+new Promise((res,rej)=>{
+  console.log('1');
+  res();
+}).then(()=>{
+  console.log('2');
+  setTimeout(()=>{console.log('3');},0);
+});
+setTimeout(()=>{console.log('4');},0);
+console.log('5');
+//1,5,2,4,3
+
+
