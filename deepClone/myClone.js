@@ -6,6 +6,10 @@ let obj = {
   e: {
     name: "jack",
     age: 12,
+    school:{
+      schoolName:'HDU',
+      address:'xiasha'
+    }
   },
 };
 obj.f = obj.b;
@@ -14,45 +18,55 @@ obj.g = obj;
 console.log(obj);
 
 function myClone(target) {
-  let special = [];
-  let targetChecked = [];
-  let targetSelf = target;
-  let res;
+  let targetStore = []; //已经被复制过的部分
+  let cloneStore = []; //已经复制过的部分
+  let circleSelf = []; //循环引用，且引用的是复制对象自身
+  let ifRootTarget = true;
 
-  function _clone(target, key) {
-    if (typeof target === "null") {
+  function _clone(_target, key) {
+    if (typeof _target === "null") {
       return null;
-    } else if (typeof target === "function") {
-      return new Function("return" + target.toString())();
-    } else if (typeof target !== "object") {
-      return target;
+    } else if (typeof _target === "function") {
+      return new Function("return" + _target.toString())();
+    } else if (typeof _target !== "object") {
+      return _target;
     }
 
-    targetChecked.push(target);
+    let res = _target instanceof Array ? [] : {};
+    let index = targetStore.indexOf(_target);
 
-    let index = targetChecked.indexOf(target);
+    //不会把最根本的target放进targetStore数组中
     if (index !== -1) {
-      special.push([key, target]);
-      return targetChecked[index];
+      return cloneStore[index];
     }
 
-    res = target instanceof Array ? [] : {};
-    for (let key in target) {
-      res[key] = _clone(target[key], key);
-    }
-
-    special.forEach((item) => {
-      if (item[1] === targetSelf) {
-        res[item[0]] = res;
+    if (_target === target) {
+      if (ifRootTarget) {
+        ifRootTarget = false;
       } else {
-        res[item[0]] = item[1];
+        //记录下引用复制对象自身的循环引用
+        circleSelf.push(key);
+        return null; //先暂时用null保存
       }
-    });
+    }
 
+    for (let key in _target) {
+      res[key] = _clone(_target[key],key);
+    }
+
+    targetStore.push(_target);
+    cloneStore.push(res);
     return res;
   }
 
-  return _clone(target, "");
+  let r = _clone(target, "");
+  if (circleSelf.length !== 0) {
+    circleSelf.forEach((item) => {
+      r[item] = r;
+    });
+  }
+
+  return r;
 }
 
 let test = myClone(obj);
@@ -61,3 +75,6 @@ console.log(obj.f === obj.b);
 console.log(test.f === test.b);
 console.log(obj.g === obj);
 console.log(test.g === test);
+console.log(`obj.c = ${obj.c}`);
+console.log(`test.c = ${test.c}`);
+console.log(test === obj);
