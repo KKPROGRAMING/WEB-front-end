@@ -87,6 +87,19 @@ setTimeout(() => {
   console.log(file1.content);
 }, 0);
 
+//___________________________________
+
+//一个例子（无promise）
+function fun() {
+  console.log("1");
+  setTimeout(console.log,100,"2");
+  console.log("3");
+}
+console.log("0");
+fun();
+setTimeout(console.log,0,"4");
+console.log("5");
+
 //一个例子
 new Promise((res, rej) => {
   console.log("1");
@@ -101,7 +114,16 @@ setTimeout(() => {
   console.log("4");
 }, 0);
 console.log("5");
-//1,5,2,4,3
+
+//_______________________________________________
+
+console.log(new Promise());//error
+console.log(new Promise(()=>{})); //pending
+console.log(new Promise((res,rej)=>{res("res")}));//fullfilled
+console.log(new Promise((res,rej)=>{rej("rej")}));//rejected
+
+console.log(Promise.resolve('res'));
+console.log(Promise.reject('rej'));
 
 //烧水 2000
 //煮面条 5000
@@ -151,3 +173,10 @@ setTimeout(() => {
     })
     .then(()=>{console.log("碗洗好了。")});
 }, 0);
+
+
+//打印试卷 1000
+//写卷子 6000
+//卷子批改 3000
+//提交 500
+//分别使用settimeout和promise实现一遍

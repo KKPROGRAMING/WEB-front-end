@@ -45,14 +45,14 @@ doHomework(70).catch((res) => {
   });
 });
 
-async function boilWater() {
+function boilWater() {
   return new Promise((res) => {
     console.log("开始烧水了...");
     setTimeout(res("水烧好了"), 2000);
   });
 }
 
-async function cookNoodles(result) {
+function cookNoodles(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("现在加入面条...");
@@ -60,7 +60,7 @@ async function cookNoodles(result) {
   });
 }
 
-async function eatNoodles(result) {
+function eatNoodles(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("开始吃面条...");
@@ -68,7 +68,7 @@ async function eatNoodles(result) {
   });
 }
 
-async function washBowl(result) {
+function washBowl(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("现在开始洗碗...");
@@ -87,10 +87,29 @@ async function washBowl(result) {
 //await用法
 async function myEatNoodles() {
   let boilWater_ = await boilWater();
-  console.log(typeof boilWater_); //string 因为通过res返回的就是一个字符串
+  //console.log(typeof boilWater_); //string 因为通过res返回的就是一个字符串
   let cookNoodles_ = await cookNoodles(boilWater_);
   let eatNoodles_ = await eatNoodles(cookNoodles_);
   washBowl(eatNoodles_);
 }
 
-myEatNoodles();
+function myEatNoodles2() {
+  //washBowl(eatNoodles(cookNoodles(boilWater())));
+  let boilWater_ = boilWater();
+  //console.log(typeof boilWater_); //string 因为通过res返回的就是一个字符串
+  let cookNoodles_ = cookNoodles(boilWater_);
+  let eatNoodles_ = eatNoodles(cookNoodles_);
+  washBowl(eatNoodles_);
+}
+
+ myEatNoodles();
+//myEatNoodles2();
+
+let testFun = async () => {
+  return await new Promise((res) => {
+    console.log("this is a arrow function");
+    res();
+  });
+};
+testFun();
+//不是不让在箭头函数里面用await，加上一个async关键字就可以了
