@@ -92,12 +92,12 @@ setTimeout(() => {
 //一个例子（无promise）
 function fun() {
   console.log("1");
-  setTimeout(console.log,100,"2");
+  setTimeout(console.log, 100, "2");
   console.log("3");
 }
 console.log("0");
 fun();
-setTimeout(console.log,0,"4");
+setTimeout(console.log, 0, "4");
 console.log("5");
 
 //一个例子
@@ -117,18 +117,50 @@ console.log("5");
 
 //_______________________________________________
 
-console.log(new Promise());//error
-console.log(new Promise(()=>{})); //pending
-console.log(new Promise((res,rej)=>{res("res")}));//fullfilled
-console.log(new Promise((res,rej)=>{rej("rej")}));//rejected
+console.log(new Promise()); //error
+console.log(new Promise(() => {})); //pending
+console.log(
+  new Promise((res, rej) => {
+    res("res");
+  })
+); //fullfilled
+console.log(
+  new Promise((res, rej) => {
+    rej("rej");
+  })
+); //rejected
 
-console.log(Promise.resolve('res'));
-console.log(Promise.reject('rej'));
+console.log(Promise.resolve("res"));
+console.log(Promise.reject("rej"));
 
 //烧水 2000
 //煮面条 5000
 //吃面条 6000
 //洗碗 3000
+
+console.log("开始烧水了");
+setTimeout(()=>{
+  console.log("水烧好了，现在开始煮面条");
+  setTimeout(()=>{
+    console.log("面条煮好了,开始吃面条");
+    setTimeout(()=>{
+      console.log("面条吃完了，现在开始洗碗");
+      setTimeout(()=>{
+        console.log("碗洗好了");
+      },3000)
+    },6000)
+  },5000)
+},2000);
+
+new Promise((res,rej)=>{
+  console.log("开始烧水了");
+  setTimeout(res(),2000);
+}).then(()=>{
+  return new Promise((res,rej)=>{
+    console.log("水烧好了，现在开始煮面条");
+    setTimeout(res(),5000);
+  })
+}).then(()=>);
 
 //吃面条
 setTimeout(() => {
@@ -155,28 +187,46 @@ setTimeout(() => {
   })
     .then(() => {
       console.log("水烧好了，现在加入面条...");
-      return new Promise(res=>{
+      return new Promise((res) => {
         setTimeout(res, 5000);
       });
     })
     .then(() => {
       console.log("面条煮熟了，开始吃面条...");
-      return new Promise(res=>{
+      return new Promise((res) => {
         setTimeout(res, 6000);
       });
     })
     .then(() => {
       console.log("面条吃完了，现在开始洗碗...");
-      return new Promise(res=>{
+      return new Promise((res) => {
         setTimeout(res, 3000);
       });
     })
-    .then(()=>{console.log("碗洗好了。")});
+    .then(() => {
+      console.log("碗洗好了。");
+    });
 }, 0);
-
 
 //打印试卷 1000
 //写卷子 6000
 //卷子批改 3000
 //提交 500
 //分别使用settimeout和promise实现一遍
+
+//async/await小例子
+async function foo() {
+  console.log(2);
+  console.log(await Promise.resolve(8));
+  console.log(9);
+}
+async function bar() {
+  console.log(4);
+  console.log(await 6);
+  console.log(7);
+}
+console.log(1);
+foo();
+console.log(3);
+bar();
+console.log(5);

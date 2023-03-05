@@ -45,14 +45,14 @@ doHomework(70).catch((res) => {
   });
 });
 
-function boilWater() {
+async function boilWater() {
   return new Promise((res) => {
     console.log("开始烧水了...");
     setTimeout(res("水烧好了"), 2000);
   });
 }
 
-function cookNoodles(result) {
+async function cookNoodles(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("现在加入面条...");
@@ -60,7 +60,7 @@ function cookNoodles(result) {
   });
 }
 
-function eatNoodles(result) {
+async function eatNoodles(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("开始吃面条...");
@@ -68,7 +68,7 @@ function eatNoodles(result) {
   });
 }
 
-function washBowl(result) {
+async function washBowl(result) {
   console.log(result);
   return new Promise((res) => {
     console.log("现在开始洗碗...");
@@ -102,7 +102,7 @@ function myEatNoodles2() {
   washBowl(eatNoodles_);
 }
 
- myEatNoodles();
+// myEatNoodles();
 //myEatNoodles2();
 
 let testFun = async () => {
@@ -113,3 +113,15 @@ let testFun = async () => {
 };
 testFun();
 //不是不让在箭头函数里面用await，加上一个async关键字就可以了
+
+
+//sleep
+async function sleep(delay) {
+  return new Promise((res,rej)=>{setTimeout(res,delay)});
+}
+async function testMySleep(delay) {
+  let now = Date.now();
+  await sleep(delay);
+  console.log(Date.now()-now);
+}
+testMySleep(2000);
